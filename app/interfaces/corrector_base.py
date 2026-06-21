@@ -1,6 +1,6 @@
-from abc import ABC, abstractclassmethod
+from abc import ABC, abstractmethod
 
 class CorrectorBase(ABC):
-    @abstractclassmethod
+    @abstractmethod
     def correct(self, results: list[dict]) -> list[dict]:
         ...

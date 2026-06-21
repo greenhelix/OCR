@@ -1,6 +1,6 @@
-from abc import ABC, abstractclassmethod
+from abc import ABC, abstractmethod
 
 class TyperBase(ABC):
-    @abstractclassmethod
+    @abstractmethod
     def type_text(self, text: str) -> None:
         ...
