@@ -34,3 +34,4 @@ Thumbs.db
 !test/*.jpeg
 
 test_*.py
+!test/*.py
