@@ -1,0 +1,32 @@
+# 개발 규칙 (Dev Rules)
+
+## 1. main.py는 조립만, 로직 0줄
+`main.py`는 프로파일 로드 → 파이프라인 조립 → 실행 세 가지만 담당한다.
+목표 30줄 이내. 실제 동작 코드가 `main.py`에 생기면 설계 위반.
+
+## 2. 문서 양식 추가 = yaml 파일 추가
+새 양식을 지원할 때 기존 코드를 수정하면 설계 위반.
+`profiles/새양식.yaml` 파일 추가 + fine-tuned 모델 저장으로만 끝나야 한다.
+
+## 3. 외부 의존성은 반드시 인터페이스를 통해 접근
+카메라, OCR 엔진, 자동입력은 `app/interfaces/` 추상 클래스를 통해서만 접근한다.
+구현체(USB↔IP카메라, PaddleOCR↔다른 엔진)를 교체해도 상위 코드는 변경되지 않아야 한다.
+
+## 4. 처리 흐름은 Pipeline 패턴
+`Capture → Preprocess → OCR → Correction → Output` 각 단계를 독립 클래스로 분리한다.
+단계 추가/제거/순서 변경은 리스트 조작만으로 가능해야 한다.
+
+## 5. 카메라 소스 자동 판별
+`source`가 `http://`, `https://`, `rtsp://`로 시작하면 IP카메라.
+숫자 문자열이면 USB 카메라. 판별 로직은 `camera_factory.py`에만 존재한다.
+
+## 6. 단계 간 데이터는 PipelineContext로 전달
+함수 인자 누적 방지를 위해 단계 간 데이터는 `PipelineContext` 데이터클래스를 통해서만 전달한다.
+
+## 7. 코드 수정 전 반드시 git pull
+다른 PC에서 작업 시 코드 수정 전에 항상 `git pull`로 최신 상태를 확인한다.
+pull 없이 수정하면 충돌 원인이 된다.
+
+## 8. 플랫폼별 분기는 output/ 안에만
+Mac/Windows 자동입력 분기는 `app/output/` 안의 구현체에서만 처리한다.
+상위 코드에 `if sys.platform` 분기가 생기면 설계 위반.

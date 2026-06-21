@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+
+# 모델 파일 (용량 큼)
+models/base/
+models/finetuned/
+
+# PaddleOCR 캐시
+inference/
+~/.paddleocr/
+
+# 환경변수
+.env
+.env.*
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# 테스트 이미지
+*.png
+*.jpg
+*.jpeg
+test_*.py
