@@ -25,8 +25,12 @@ inference/
 .DS_Store
 Thumbs.db
 
-# 테스트 이미지
+# 이미지 (test/ 폴더 제외)
 *.png
 *.jpg
 *.jpeg
+!test/*.png
+!test/*.jpg
+!test/*.jpeg
+
 test_*.py
